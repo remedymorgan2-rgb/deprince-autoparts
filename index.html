@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Prince Auto Motor Parts | Lagos</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">
+      <i class="fas fa-cog fa-spin"></i> De Prince Auto
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#order">Order</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <div class="badge">✅ Tested & Trusted • 8+ Years</div>
+      <h1>Your Trusted Source For <span>Auto Spare Parts</span></h1>
+      <p>Toyota, Nissan, Lexus & More — Interior, Exterior, Engine & Body Parts. Fast Delivery Across Lagos & Neighboring States.</p>
+      <div class="hero-buttons">
+        <a href="#order" class="btn-primary">Order Now</a>
+        <a href="https://wa.me/2349036339950" target="_blank" class="btn-whatsapp">
+          <i class="fab fa-whatsapp"></i> WhatsApp Us
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <h3>8+</h3>
+          <p>Years Experience</p>
+        </div>
+        <div class="stat">
+          <h3>500+</h3>
+          <p>Happy Customers</p>
+        </div>
+        <div class="stat">
+          <h3>24/6</h3>
+          <p>Mon–Sat Open</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notice Banner -->
+  <div class="notice-banner">
+    <i class="fas fa-truck"></i>
+    <span>Sunday? We're closed but still taking orders! Call or email and we deliver next day. Emergency? We've got you covered.</span>
+    <a href="tel:+2349036339950">Call Now</a>
+  </div>
+
+  <!-- Products Section -->
+  <section id="products">
+    <div class="section-header">
+      <h2>Our <span>Products</span></h2>
+      <p>Quality spare parts for all major car brands</p>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-icon"><i class="fas fa-circle-notch"></i></div>
+        <h3>Suspension & Brakes</h3>
+        <p>Shock absorbers, brake pads, discs and full suspension kits</p>
+        <div class="price">From ₦8,500</div>
+        <button class="order-btn" onclick="selectProduct('Suspension & Brakes')">Order This</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon"><i class="fas fa-battery-full"></i></div>
+        <h3>Car Batteries</h3>
+        <p>Long-lasting batteries for all car brands and models</p>
+        <div class="price">From ₦35,000</div>
+        <button class="order-btn" onclick="selectProduct('Car Batteries')">Order This</button>
+      </div>
+
+      <div class="product-card featured">
+        <div class="featured-badge">Popular</div>
+        <div class="product-icon"><i class="fas fa-fan"></i></div>
+        <h3>Radiator</h3>
+        <p>OEM and aftermarket radiators for Toyota, Nissan, Lexus</p>
+        <div class="price">From ₦22,000</div>
+        <button class="order-btn" onclick="selectProduct('Radiator')">Order This</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon"><i class="fas fa-bolt"></i></div>
+        <h3>Alternator</h3>
+        <p>Genuine and quality alternators, tested before delivery</p>
+        <div class="price">From ₦18,000</div>
+        <button class="order-btn" onclick="selectProduct('Alternator')">Order This</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon"><i class="fas fa-wind"></i></div>
+        <h3>Muffler & Exhaust</h3>
+        <p>Full exhaust systems and mufflers for all car types</p>
+        <div class="price">From ₦12,000</div>
+        <button class="order-btn" onclick="selectProduct('Muffler & Exhaust')">Order This</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon"><i class="fas fa-door-open"></i></div>
+        <h3>Car Doors & Boot</h3>
+        <p>Body panels, doors, bonnets and boot covers</p>
+        <div class="price">From ₦45,000</div>
+        <button class="order-btn" onclick="selectProduct('Car Doors & Boot')">Order This</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon"><i class="fas fa-lightbulb"></i></div>
+        <h3>Head Lamps & Fancy Lights</h3>
+        <p>OEM headlamps, LED fancy lights and indicators</p>
+        <div class="price">From ₦6,500</div>
+        <button class="order-btn" onclick="selectProduct('Head Lamps & Fancy Lights')">Order This</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-icon"><i class="fas fa-car"></i></div>
+        <h3>Car Bodies & Panels</h3>
+        <p>Full car bodies, fenders, bumpers for major brands</p>
+        <div class="price">From ₦60,000</div>
+        <button class="order-btn" onclick="selectProduct('Car Bodies & Panels')">Order This</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Order Section -->
+  <section id="order">
+    <div class="section-header">
+      <h2>Place Your <span>Order</span></h2>
+      <p>Fill the form and we'll contact you immediately</p>
+    </div>
+    <div class="order-container">
+      <div class="order-form">
+
+        <div class="form-group">
+          <label>Your Full Name</label>
+          <input type="text" id="customerName" placeholder="e.g. Emeka Johnson">
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="customerPhone" placeholder="e.g. 08012345678">
+        </div>
+
+        <div class="form-group">
+          <label>Product You Want</label>
+          <input type="text" id="productName" placeholder="e.g. Toyota Camry Radiator 2010">
+        </div>
+
+        <div class="form-group">
+          <label>Car Brand & Model</label>
+          <input type="text" id="carModel" placeholder="e.g. Toyota Camry 2010">
+        </div>
+
+        <div class="form-group">
+          <label>How do you want it?</label>
+          <div class="delivery-options">
+            <label class="option-card">
+              <input type="radio" name="deliveryType" value="delivery" onchange="toggleDelivery(true)">
+              <i class="fas fa-truck"></i>
+              <span>Home Delivery</span>
+            </label>
+            <label class="option-card">
+              <input type="radio" name="deliveryType" value="pickup" onchange="toggleDelivery(false)" checked>
+              <i class="fas fa-store"></i>
+              <span>Pick Up In Shop</span>
+            </label>
+          </div>
+        </div>
+
+        <div id="delivery-fields" style="display:none;">
+          <div class="form-group">
+            <label>Delivery Address</label>
+            <input type="text" id="deliveryAddress" placeholder="Full address including area">
+          </div>
+          <div class="form-group">
+            <label>Preferred Delivery Date</label>
+            <input type="date" id="deliveryDate">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Extra Notes (optional)</label>
+          <textarea id="extraNotes" rows="3" placeholder="Any extra details about what you need..."></textarea>
+        </div>
+
+        <button class="submit-btn" onclick="submitOrder()">
+          <i class="fab fa-whatsapp"></i> Send Order via WhatsApp
+        </button>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <div class="about-content">
+      <div class="about-text">
+        <h2>Why Choose <span>De Prince Auto?</span></h2>
+        <div class="about-points">
+          <div class="point">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+              <h4>Tested & Trusted</h4>
+              <p>Over 8 years serving Lagos with quality parts customers can depend on.</p>
+            </div>
+          </div>
+          <div class="point">
+            <i class="fas fa-truck"></i>
+            <div>
+              <h4>Home Delivery</h4>
+              <p>We deliver across Lagos and neighboring states, fast and reliable.</p>
+            </div>
+          </div>
+          <div class="point">
+            <i class="fas fa-tags"></i>
+            <div>
+              <h4>Best Prices</h4>
+              <p>Competitive prices on genuine and quality aftermarket parts.</p>
+            </div>
+          </div>
+          <div class="point">
+            <i class="fas fa-headset"></i>
+            <div>
+              <h4>Always Reachable</h4>
+              <p>Mon–Sat open, Sundays we still take orders via call or email.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="section-header">
+      <h2>Contact <span>Us</span></h2>
+      <p>We're always happy to help</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <i class="fas fa-map-marker-alt"></i>
+        <h4>Location</h4>
+        <p>Ladipo St, Mushin, 102215, Lagos Nigeria</p>
+      </div>
+      <div class="contact-card">
+        <i class="fas fa-phone"></i>
+        <h4>Call Us</h4>
+        <a href="tel:+2349036339950">+234 903 633 9950</a>
+        <a href="tel:+2348128777299">+234 812 877 7299</a>
+      </div>
+      <div class="contact-card">
+        <i class="fab fa-whatsapp"></i>
+        <h4>WhatsApp</h4>
+        <a href="https://wa.me/2349036339950" target="_blank">Chat on WhatsApp</a>
+      </div>
+      <div class="contact-card">
+        <i class="fas fa-envelope"></i>
+        <h4>Email</h4>
+        <a href="mailto:priceagbo980@gmail.com">priceagbo980@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <i class="fas fa-cog"></i> De Prince Auto Motor Parts
+      </div>
+      <p>Ladipo St, Mushin, Lagos | Mon–Sat: 24hrs | Sun: Orders via Call/Email</p>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#order">Order</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <p class="footer-credit">Built with ❤️ by Remedy</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
