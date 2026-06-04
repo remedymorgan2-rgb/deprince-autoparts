@@ -9,11 +9,8 @@
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav>
-    <div class="logo">
-      <i class="fas fa-cog fa-spin"></i> De Prince Auto
-    </div>
+    <div class="logo"><i class="fas fa-cog fa-spin"></i> De Prince Auto</div>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
       <li><a href="#products">Products</a></li>
@@ -21,12 +18,9 @@
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <div class="hamburger" onclick="toggleMenu()">
-      <i class="fas fa-bars"></i>
-    </div>
+    <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
   </nav>
 
-  <!-- Hero Section -->
   <section id="home" class="hero">
     <div class="hero-content">
       <div class="badge">✅ Tested & Trusted • 8+ Years</div>
@@ -39,36 +33,27 @@
         </a>
       </div>
       <div class="hero-stats">
-        <div class="stat">
-          <h3>8+</h3>
-          <p>Years Experience</p>
-        </div>
-        <div class="stat">
-          <h3>500+</h3>
-          <p>Happy Customers</p>
-        </div>
-        <div class="stat">
-          <h3>24/6</h3>
-          <p>Mon–Sat Open</p>
-        </div>
+        <div class="stat"><h3>8+</h3><p>Years Experience</p></div>
+        <div class="stat"><h3>500+</h3><p>Happy Customers</p></div>
+        <div class="stat"><h3>24/6</h3><p>Mon–Sat Open</p></div>
       </div>
     </div>
   </section>
 
-  <!-- Notice Banner -->
   <div class="notice-banner">
     <i class="fas fa-truck"></i>
-    <span>Sunday? We're closed but still taking orders! Call or email and we deliver next day. Emergency? We've got you covered.</span>
+    <span>Sunday? We're closed but still taking orders! Call or email and we deliver next day.</span>
     <a href="tel:+2349036339950">Call Now</a>
   </div>
 
-  <!-- Products Section -->
   <section id="products">
     <div class="section-header">
       <h2>Our <span>Products</span></h2>
       <p>Quality spare parts for all major car brands</p>
     </div>
-    
+    <div class="products-grid">
+
+      <!-- Category Cards -->
       <div class="product-card">
         <div class="product-icon"><i class="fas fa-circle-notch"></i></div>
         <h3>Suspension & Brakes</h3>
@@ -111,14 +96,6 @@
       </div>
 
       <div class="product-card">
-        <div class="product-icon"><i class="fas fa-door-open"></i></div>
-        <h3>Car Doors & Boot</h3>
-        <p>Body panels, doors, bonnets and boot covers</p>
-        <div class="price">From ₦45,000</div>
-        <button class="order-btn" onclick="selectProduct('Car Doors & Boot')">Order This</button>
-      </div>
-
-      <div class="product-card">
         <div class="product-icon"><i class="fas fa-lightbulb"></i></div>
         <h3>Head Lamps & Fancy Lights</h3>
         <p>OEM headlamps, LED fancy lights and indicators</p>
@@ -126,55 +103,80 @@
         <button class="order-btn" onclick="selectProduct('Head Lamps & Fancy Lights')">Order This</button>
       </div>
 
+      <!-- Real Photo Cards -->
       <div class="product-card">
-        <div class="product-icon"><i class="fas fa-car"></i></div>
-        <h3>Car Bodies & Panels</h3>
-        <p>Full car bodies, fenders, bumpers for major brands</p>
-        <div class="price">From ₦60,000</div>
-        <button class="order-btn" onclick="selectProduct('Car Bodies & Panels')">Order This</button>
+        <div class="product-img-wrap">
+          <img src="2.jpeg" alt="Front Fender">
+        </div>
+        <h3>Front Fender</h3>
+        <p>Quality body panel, fits multiple car models. Available in stock.</p>
+        <div class="price">Call for Price</div>
+        <button class="order-btn" onclick="selectProduct('Front Fender')">Order This</button>
       </div>
-<div class="product-card">
-  <img src="2.jpeg" alt="Front Fender" style="width:100%;border-radius:10px;margin-bottom:15px;">
-  <h3>Front Fender</h3>
-  <p>Quality body panel available in stock.</p>
-  <button class="order-btn" onclick="selectProduct('Front Fender')">Order This</button>
-</div>
-    <div class="product-card">
-  <img src="3.jpeg" alt="Mazda Rear Boot" style="width:100%;border-radius:10px;margin-bottom:15px;">
-  <h3>Mazda Rear Boot</h3>
-  <p>Original rear boot assembly available.</p>
-  <button class="order-btn" onclick="selectProduct('Mazda Rear Boot')">Order This</button>
-</div>
 
-<div class="product-card">
-  <img src="4.jpeg" alt="Pillar Garnish Trim" style="width:100%;border-radius:10px;margin-bottom:15px;">
-  <h3>Pillar Garnish Trim</h3>
-  <p>Gloss black pillar trim set in excellent condition.</p>
-  <button class="order-btn" onclick="selectProduct('Pillar Garnish Trim')">Order This</button>
-</div>
-<div class="product-card">
-  <img src="6.jpeg" alt="Toyota Steering Wheel" style="width:100%;border-radius:10px;margin-bottom:15px;">
-  <h3>Toyota Steering Wheel</h3>
-  <p>Original multifunction steering wheel.</p>
-  <button class="order-btn" onclick="selectProduct('Toyota Steering Wheel')">Order This</button>
-</div>
-<div class="product-card">
-<img src="5.jpeg" alt="Front Grille" style="width:100%;border-radius:10px;margin-bottom:15px;">
-  <h3>Front Grille</h3>
-  <p>Quality front grille assembly available.</p>
-  <button class="order-btn" onclick="selectProduct('Front Grille')">Order This</button>
-</div>
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="3.jpeg" alt="Mazda Rear Boot">
+        </div>
+        <h3>Mazda Rear Boot</h3>
+        <p>Original rear boot assembly, good condition. Available now.</p>
+        <div class="price">Call for Price</div>
+        <button class="order-btn" onclick="selectProduct('Mazda Rear Boot')">Order This</button>
+      </div>
 
-<div class="product-card">
-  <img src="7.jpeg" alt="Vehicle Door Assembly" style="width:100%;border-radius:10px;margin-bottom:15px;">
-  <h3>Vehicle Door Assembly</h3>
-  <p>Complete door assembly available in stock.</p>
-  <button class="order-btn" onclick="selectProduct('Vehicle Door Assembly')">Order This</button>
-</div>
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="4.jpeg" alt="Pillar Garnish Trim">
+        </div>
+        <h3>Pillar Garnish Trim</h3>
+        <p>Gloss black pillar trim set, excellent condition. Pair available.</p>
+        <div class="price">Call for Price</div>
+        <button class="order-btn" onclick="selectProduct('Pillar Garnish Trim')">Order This</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="5.jpeg" alt="Car Bonnet">
+        </div>
+        <h3>Car Bonnet</h3>
+        <p>White car bonnet available. Good body condition, ready for respray.</p>
+        <div class="price">Call for Price</div>
+        <button class="order-btn" onclick="selectProduct('Car Bonnet')">Order This</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="6.jpeg" alt="Toyota Steering Wheel">
+        </div>
+        <h3>Toyota Steering Wheel</h3>
+        <p>Original Toyota multifunction steering wheel with controls.</p>
+        <div class="price">Call for Price</div>
+        <button class="order-btn" onclick="selectProduct('Toyota Steering Wheel')">Order This</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="7.jpeg" alt="Vehicle Door Assembly">
+        </div>
+        <h3>Vehicle Door Assembly</h3>
+        <p>Complete door assembly with glass and handle. Ready for fitting.</p>
+        <div class="price">Call for Price</div>
+        <button class="order-btn" onclick="selectProduct('Vehicle Door Assembly')">Order This</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="WhatsApp_Image_2026-06-04_at_12_31_29_PM.jpeg" alt="Front Bumper Grille">
+        </div>
+        <h3>Front Bumper & Grille</h3>
+        <p>Front bumper assembly with grille. Fits Toyota Hilux/Prado models.</p>
+        <div class="price">Call for Price</div>
+        <button class="order-btn" onclick="selectProduct('Front Bumper & Grille')">Order This</button>
+      </div>
+
     </div>
   </section>
 
-  <!-- Order Section -->
   <section id="order">
     <div class="section-header">
       <h2>Place Your <span>Order</span></h2>
@@ -182,27 +184,22 @@
     </div>
     <div class="order-container">
       <div class="order-form">
-
         <div class="form-group">
           <label>Your Full Name</label>
           <input type="text" id="customerName" placeholder="e.g. Emeka Johnson">
         </div>
-
         <div class="form-group">
           <label>Phone Number</label>
           <input type="tel" id="customerPhone" placeholder="e.g. 08012345678">
         </div>
-
         <div class="form-group">
           <label>Product You Want</label>
           <input type="text" id="productName" placeholder="e.g. Toyota Camry Radiator 2010">
         </div>
-
         <div class="form-group">
           <label>Car Brand & Model</label>
           <input type="text" id="carModel" placeholder="e.g. Toyota Camry 2010">
         </div>
-
         <div class="form-group">
           <label>How do you want it?</label>
           <div class="delivery-options">
@@ -218,7 +215,6 @@
             </label>
           </div>
         </div>
-
         <div id="delivery-fields" style="display:none;">
           <div class="form-group">
             <label>Delivery Address</label>
@@ -229,21 +225,17 @@
             <input type="date" id="deliveryDate">
           </div>
         </div>
-
         <div class="form-group">
           <label>Extra Notes (optional)</label>
           <textarea id="extraNotes" rows="3" placeholder="Any extra details about what you need..."></textarea>
         </div>
-
         <button class="submit-btn" onclick="submitOrder()">
           <i class="fab fa-whatsapp"></i> Send Order via WhatsApp
         </button>
-
       </div>
     </div>
   </section>
 
-  <!-- About Section -->
   <section id="about" class="about-section">
     <div class="about-content">
       <div class="about-text">
@@ -251,38 +243,25 @@
         <div class="about-points">
           <div class="point">
             <i class="fas fa-shield-alt"></i>
-            <div>
-              <h4>Tested & Trusted</h4>
-              <p>Over 8 years serving Lagos with quality parts customers can depend on.</p>
-            </div>
+            <div><h4>Tested & Trusted</h4><p>Over 8 years serving Lagos with quality parts customers can depend on.</p></div>
           </div>
           <div class="point">
             <i class="fas fa-truck"></i>
-            <div>
-              <h4>Home Delivery</h4>
-              <p>We deliver across Lagos and neighboring states, fast and reliable.</p>
-            </div>
+            <div><h4>Home Delivery</h4><p>We deliver across Lagos and neighboring states, fast and reliable.</p></div>
           </div>
           <div class="point">
             <i class="fas fa-tags"></i>
-            <div>
-              <h4>Best Prices</h4>
-              <p>Competitive prices on genuine and quality aftermarket parts.</p>
-            </div>
+            <div><h4>Best Prices</h4><p>Competitive prices on genuine and quality aftermarket parts.</p></div>
           </div>
           <div class="point">
             <i class="fas fa-headset"></i>
-            <div>
-              <h4>Always Reachable</h4>
-              <p>Mon–Sat open, Sundays we still take orders via call or email.</p>
-            </div>
+            <div><h4>Always Reachable</h4><p>Mon–Sat open, Sundays we still take orders via call or email.</p></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
   <section id="contact">
     <div class="section-header">
       <h2>Contact <span>Us</span></h2>
@@ -313,12 +292,9 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">
-        <i class="fas fa-cog"></i> De Prince Auto Motor Parts
-      </div>
+      <div class="footer-logo"><i class="fas fa-cog"></i> De Prince Auto Motor Parts</div>
       <p>Ladipo St, Mushin, Lagos | Mon–Sat: 24hrs | Sun: Orders via Call/Email</p>
       <div class="footer-links">
         <a href="#home">Home</a>
