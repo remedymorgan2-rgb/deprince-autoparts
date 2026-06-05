@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | De Prince Auto</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: Arial, sans-serif; background:#0f0f0f; color:white; }
+
+    .admin-nav {
+      background:#1a1a1a;
+      padding:16px 30px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:2px solid #c0392b;
+    }
+    .admin-nav h1 { color:#c0392b; font-size:20px; }
+    .admin-nav a { color:#aaa; text-decoration:none; font-size:14px; }
+    .admin-nav a:hover { color:white; }
+
+    .login-screen {
+      max-width:400px;
+      margin:100px auto;
+      background:#1a1a1a;
+      border:1px solid #333;
+      border-radius:16px;
+      padding:40px;
+      text-align:center;
+    }
+    .login-screen h2 { color:#c0392b; margin-bottom:8px; }
+    .login-screen p { color:#aaa; font-size:14px; margin-bottom:24px; }
+    .login-screen input {
+      width:100%;
+      background:#222;
+      border:1px solid #333;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      font-size:15px;
+      margin-bottom:14px;
+      outline:none;
+    }
+    .login-screen input:focus { border-color:#c0392b; }
+    .login-btn {
+      width:100%;
+      background:#c0392b;
+      color:white;
+      border:none;
+      padding:14px;
+      border-radius:8px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    .login-btn:hover { background:#922b21; }
+    .error-msg { color:#e74c3c; font-size:13px; margin-top:10px; display:none; }
+
+    .admin-panel { display:none; padding:30px; max-width:900px; margin:0 auto; }
+    .admin-panel h2 { font-size:22px; margin-bottom:6px; }
+    .admin-panel .sub { color:#aaa; font-size:14px; margin-bottom:30px; }
+
+    .tabs { display:flex; gap:12px; margin-bottom:30px; flex-wrap:wrap; }
+    .tab-btn {
+      background:#1a1a1a;
+      border:1px solid #333;
+      color:#aaa;
+      padding:10px 22px;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:14px;
+      transition:all 0.2s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background:#c0392b;
+      color:white;
+      border-color:#c0392b;
+    }
+
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+
+    .card {
+      background:#1a1a1a;
+      border:1px solid #2a2a2a;
+      border-radius:12px;
+      padding:28px;
+      margin-bottom:20px;
+    }
+    .card h3 { font-size:16px; margin-bottom:20px; color:#c0392b; }
+
+    label {
+      display:block;
+      font-size:13px;
+      color:#aaa;
+      margin-bottom:6px;
+      font-weight:bold;
+    }
+    input, textarea, select {
+      width:100%;
+      background:#222;
+      border:1px solid #333;
+      color:white;
+      padding:11px 14px;
+      border-radius:8px;
+      font-size:14px;
+      margin-bottom:16px;
+      outline:none;
+    }
+    input:focus, textarea:focus, select:focus { border-color:#c0392b; }
+    textarea { resize:vertical; }
+
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+    .save-btn {
+      background:#c0392b;
+      color:white;
+      border:none;
+      padding:13px 30px;
+      border-radius:8px;
+      font-size:15px;
+      font-weight:bold;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .save-btn:hover { background:#922b21; }
+
+    .success-toast {
+      position:fixed;
+      bottom:30px;
+      right:30px;
+      background:#27ae60;
+      color:white;
+      padding:14px 24px;
+      border-radius:10px;
+      font-size:14px;
+      display:none;
+      z-index:9999;
+      align-items:center;
+      gap:10px;
+    }
+
+    .product-list { display:flex; flex-direction:column; gap:12px; }
+    .product-item {
+      background:#222;
+      border:1px solid #333;
+      border-radius:10px;
+      padding:16px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .product-item-info h4 { font-size:15px; margin-bottom:4px; }
+    .product-item-info span { font-size:12px; color:#aaa; }
+    .del-btn {
+      background:transparent;
+      border:1px solid #e74c3c;
+      color:#e74c3c;
+      padding:7px 16px;
+      border-radius:6px;
+      cursor:pointer;
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .del-btn:hover { background:#e74c3c; color:white; }
+
+    .whatsapp-preview {
+      background:#111;
+      border:1px solid #333;
+      border-radius:10px;
+      padding:20px;
+      font-family:monospace;
+      font-size:13px;
+      color:#25D366;
+      line-height:1.8;
+      white-space:pre-wrap;
+    }
+
+    @media(max-width:600px) {
+      .form-row { grid-template-columns:1fr; }
+      .admin-panel { padding:16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-nav">
+  <h1><i class="fas fa-cog"></i> De Prince Admin</h1>
+  <a href="index.html"><i class="fas fa-external-link-alt"></i> View Website</a>
+</div>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <i class="fas fa-lock" style="font-size:40px;color:#c0392b;margin-bottom:16px;"></i>
+  <h2>Admin Login</h2>
+  <p>Enter your password to manage the website</p>
+  <input type="password" id="passwordInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')login()">
+  <button class="login-btn" onclick="login()">Login</button>
+  <p class="error-msg" id="errorMsg">❌ Wrong password. Try again.</p>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="adminPanel">
+  <h2>Welcome, Prince 👋</h2>
+  <p class="sub">Manage your website content from here</p>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('products')"><i class="fas fa-box"></i> Products</button>
+    <button class="tab-btn" onclick="switchTab('contact')"><i class="fas fa-phone"></i> Contact Info</button>
+    <button class="tab-btn" onclick="switchTab('whatsapp')"><i class="fab fa-whatsapp"></i> WhatsApp Test</button>
+    <button class="tab-btn" onclick="switchTab('guide')"><i class="fas fa-book"></i> How To Update</button>
+  </div>
+
+  <!-- PRODUCTS TAB -->
+  <div class="tab-content active" id="tab-products">
+    <div class="card">
+      <h3><i class="fas fa-plus"></i> Add New Product</h3>
+      <div class="form-row">
+        <div>
+          <label>Product Name</label>
+          <input type="text" id="newProductName" placeholder="e.g. Toyota Camry Door">
+        </div>
+        <div>
+          <label>Price</label>
+          <input type="text" id="newProductPrice" placeholder="e.g. ₦45,000 or Call for Price">
+        </div>
+      </div>
+      <label>Description</label>
+      <textarea id="newProductDesc" rows="2" placeholder="Short description of the product..."></textarea>
+      <label>Image Filename (must be uploaded to GitHub)</label>
+      <input type="text" id="newProductImg" placeholder="e.g. product1.jpeg">
+      <button class="save-btn" onclick="addProduct()">
+        <i class="fas fa-plus"></i> Add Product
+      </button>
+    </div>
+
+    <div class="card">
+      <h3><i class="fas fa-list"></i> Current Products</h3>
+      <div class="product-list" id="productList"></div>
+    </div>
+
+    <div class="card">
+      <h3><i class="fas fa-code"></i> Copy This Code → Paste into index.html</h3>
+      <p style="font-size:13px;color:#aaa;margin-bottom:14px;">After adding/removing products above, copy this generated code and replace the products section in your index.html on GitHub.</p>
+      <textarea id="generatedCode" rows="10" style="font-family:monospace;font-size:12px;" readonly></textarea>
+      <button class="save-btn" style="margin-top:12px;" onclick="copyCode()">
+        <i class="fas fa-copy"></i> Copy Code
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTACT TAB -->
+  <div class="tab-content" id="tab-contact">
+    <div class="card">
+      <h3><i class="fas fa-phone"></i> Update Contact Details</h3>
+      <p style="font-size:13px;color:#aaa;margin-bottom:20px;">Change your phone numbers, WhatsApp, email or address here and share the updated info with your developer (Remedy) to update the site.</p>
+      <div class="form-row">
+        <div>
+          <label>Phone Number 1</label>
+          <input type="text" id="phone1" value="+2349036339950">
+        </div>
+        <div>
+          <label>Phone Number 2</label>
+          <input type="text" id="phone2" value="+2348128777299">
+        </div>
+      </div>
+      <label>WhatsApp Number</label>
+      <input type="text" id="waNumber" value="2349036339950">
+      <label>Email Address</label>
+      <input type="text" id="emailAddr" value="priceagbo980@gmail.com">
+      <label>Business Address</label>
+      <input type="text" id="bizAddress" value="Ladipo St, Mushin, 102215, Lagos Nigeria">
+      <button class="save-btn" onclick="saveContact()">
+        <i class="fas fa-paper-plane"></i> Send Update to Remedy via WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- WHATSAPP TEST TAB -->
+  <div class="tab-content" id="tab-whatsapp">
+    <div class="card">
+      <h3><i class="fab fa-whatsapp"></i> Test Order Message</h3>
+      <p style="font-size:13px;color:#aaa;margin-bottom:20px;">This is exactly what a customer order looks like when it arrives on your WhatsApp. Every order from the website comes formatted like this.</p>
+      <div class="whatsapp-preview">
+🔧 *NEW ORDER — De Prince Auto Parts*
+
+👤 *Customer:* Emeka Johnson
+📞 *Phone:* 08012345678
+🛒 *Product:* Toyota Camry Radiator 2010
+🚗 *Car Model:* Toyota Camry 2010
+📦 *Order Type:* Home Delivery
+📍 *Delivery Address:* 5 Adeola Street, Surulere Lagos
+📅 *Preferred Date:* 2026-06-10
+📝 *Extra Notes:* Please call before coming
+
+_Sent from De Prince Auto Website_</div>
+      <button class="save-btn" style="margin-top:16px;background:#25D366;" onclick="window.open('https://wa.me/2349036339950?text=Testing+order+system+from+website+admin','_blank')">
+        <i class="fab fa-whatsapp"></i> Send Test to My WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- GUIDE TAB -->
+  <div class="tab-content" id="tab-guide">
+    <div class="card">
+      <h3><i class="fas fa-book"></i> How to Update Your Website</h3>
+      <div style="line-height:2;font-size:14px;color:#ccc;">
+        <p style="margin-bottom:16px;color:#aaa;">Here's everything you need to know to manage your website:</p>
+
+        <p><strong style="color:#c0392b;">📸 To add a new product photo:</strong></p>
+        <p>1. Go to github.com and sign in</p>
+        <p>2. Open your deprince-autoparts repository</p>
+        <p>3. Click "Add file" → "Upload files"</p>
+        <p>4. Upload your product photo</p>
+        <p>5. Note the exact filename (e.g. newpart.jpeg)</p>
+        <p>6. Use that filename in the Products tab above to generate code</p>
+        <p style="margin-bottom:16px;"></p>
+
+        <p><strong style="color:#c0392b;">💬 To change phone number or email:</strong></p>
+        <p>Go to the Contact tab above and click "Send Update to Remedy"</p>
+        <p style="margin-bottom:16px;"></p>
+
+        <p><strong style="color:#c0392b;">📦 Orders come to your WhatsApp automatically.</strong></p>
+        <p>No action needed — customers fill the form and it sends directly to you.</p>
+        <p style="margin-bottom:16px;"></p>
+
+        <p><strong style="color:#c0392b;">🌐 Your website link:</strong></p>
+        <p style="color:#25D366;">https://remedymorgan2-rgb.github.io/deprince-autoparts/</p>
+        <p style="margin-bottom:16px;"></p>
+
+        <p><strong style="color:#c0392b;">📞 Need help? Contact your developer:</strong></p>
+        <p>Remedy built this website for you. Call or WhatsApp him for any changes.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Success Toast -->
+<div class="success-toast" id="toast">
+  <i class="fas fa-check-circle"></i> <span id="toastMsg">Saved!</span>
+</div>
+
+<script>
+  const PASSWORD = "deprince2024";
+
+  // Default products
+  let products = [
+    { name:"Suspension & Brakes", price:"From ₦8,500", desc:"Shock absorbers, brake pads, discs and full suspension kits", img:"", icon:"fa-circle-notch" },
+    { name:"Car Batteries", price:"From ₦35,000", desc:"Long-lasting batteries for all car brands and models", img:"", icon:"fa-battery-full" },
+    { name:"Radiator", price:"From ₦22,000", desc:"OEM and aftermarket radiators for Toyota, Nissan, Lexus", img:"", icon:"fa-fan", featured:true },
+    { name:"Alternator", price:"From ₦18,000", desc:"Genuine and quality alternators, tested before delivery", img:"", icon:"fa-bolt" },
+    { name:"Muffler & Exhaust", price:"From ₦12,000", desc:"Full exhaust systems and mufflers for all car types", img:"", icon:"fa-wind" },
+    { name:"Head Lamps & Fancy Lights", price:"From ₦6,500", desc:"OEM headlamps, LED fancy lights and indicators", img:"", icon:"fa-lightbulb" },
+    { name:"Front Fender", price:"Call for Price", desc:"Quality body panel, fits multiple car models. Available in stock.", img:"2.jpeg" },
+    { name:"Mazda Rear Boot", price:"Call for Price", desc:"Original rear boot assembly, good condition. Available now.", img:"3.jpeg" },
+    { name:"Pillar Garnish Trim", price:"Call for Price", desc:"Gloss black pillar trim set, excellent condition.", img:"4.jpeg" },
+    { name:"Car Bonnet", price:"Call for Price", desc:"White car bonnet available. Good body condition.", img:"5.jpeg" },
+    { name:"Toyota Steering Wheel", price:"Call for Price", desc:"Original Toyota multifunction steering wheel.", img:"6.jpeg" },
+    { name:"Vehicle Door Assembly", price:"Call for Price", desc:"Complete door assembly with glass and handle.", img:"7.jpeg" },
+  ];
+
+  function login() {
+    const val = document.getElementById('passwordInput').value;
+    if (val === PASSWORD) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      loadProducts();
+    } else {
+      document.getElementById('errorMsg').style.display = 'block';
+    }
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function renderProducts() {
+    const list = document.getElementById('productList');
+    list.innerHTML = products.map((p, i) => `
+      <div class="product-item">
+        <div class="product-item-info">
+          <h4>${p.name}</h4>
+          <span>${p.price} ${p.img ? '• 📸 Has photo' : '• 🔷 Icon card'}</span>
+        </div>
+        <button class="del-btn" onclick="deleteProduct(${i})"><i class="fas fa-trash"></i> Remove</button>
+      </div>
+    `).join('');
+    generateCode();
+  }
+
+  async function addProduct() {
+
+  const name = document.getElementById('newProductName').value.trim();
+  const price = document.getElementById('newProductPrice').value.trim();
+  const desc = document.getElementById('newProductDesc').value.trim();
+  const img = document.getElementById('newProductImg').value.trim();
+
+  if (!name || !price || !desc) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  try {
+
+    await addDoc(collection(db, "products"), {
+      name,
+      price,
+      desc,
+      img,
+      createdAt: new Date().toISOString()
+    });
+
+    document.getElementById('newProductName').value = '';
+    document.getElementById('newProductPrice').value = '';
+    document.getElementById('newProductDesc').value = '';
+    document.getElementById('newProductImg').value = '';
+
+    showToast("Product saved to Firebase");
+
+    loadProducts();
+
+  } catch (err) {
+    console.error(err);
+    alert("Failed to save product");
+  }
+async function loadProducts() {
+
+  products = [];
+
+  const snapshot = await getDocs(
+    collection(db, "products")
+  );
+
+  snapshot.forEach(docSnap => {
+
+    products.push({
+      id: docSnap.id,
+      ...docSnap.data()
+    });
+
+  });
+
+  renderProducts();
+}
+
+  async function deleteProduct(i) {
+
+  if (!confirm("Delete this product?")) return;
+
+  try {
+
+    await deleteDoc(
+      doc(db, "products", products[i].id)
+    );
+
+    showToast("Deleted");
+
+    loadProducts();
+
+  } catch (err) {
+
+    console.error(err);
+    alert("Delete failed");
+
+  }
+}
+  function generateCode() {
+    const code = products.map(p => {
+      if (p.img) {
+        return `<div class="product-card${p.featured?' featured':''}">
+  ${p.featured?'<div class="featured-badge">Popular</div>':''}
+  <div class="product-img-wrap"><img src="${p.img}" alt="${p.name}"></div>
+  <h3>${p.name}</h3>
+  <p>${p.desc}</p>
+  <div class="price">${p.price}</div>
+  <button class="order-btn" onclick="selectProduct('${p.name}')">Order This</button>
+</div>`;
+      } else {
+        return `<div class="product-card${p.featured?' featured':''}">
+  ${p.featured?'<div class="featured-badge">Popular</div>':''}
+  <div class="product-icon"><i class="fas ${p.icon||'fa-car'}"></i></div>
+  <h3>${p.name}</h3>
+  <p>${p.desc}</p>
+  <div class="price">${p.price}</div>
+  <button class="order-btn" onclick="selectProduct('${p.name}')">Order This</button>
+</div>`;
+      }
+    }).join('\n\n');
+    document.getElementById('generatedCode').value = code;
+  }
+
+  function copyCode() {
+    const ta = document.getElementById('generatedCode');
+    ta.select();
+    document.execCommand('copy');
+    showToast('Code copied! Paste it into GitHub.');
+  }
+
+  function saveContact() {
+    const p1 = document.getElementById('phone1').value;
+    const p2 = document.getElementById('phone2').value;
+    const wa = document.getElementById('waNumber').value;
+    const em = document.getElementById('emailAddr').value;
+    const ad = document.getElementById('bizAddress').value;
+    const msg = `Hi Remedy, please update my website contact details:\n\nPhone 1: ${p1}\nPhone 2: ${p2}\nWhatsApp: ${wa}\nEmail: ${em}\nAddress: ${ad}`;
+    window.open(`https://wa.me/2349036339950?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.style.display = 'flex';
+  setTimeout(() => toast.style.display = 'none', 3000);
+}
+
+</script>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyAyNdQEZ4Jqj8FezBKTeWxAO773FN3qVsA",
+  authDomain: "deprince-auto.firebaseapp.com",
+  projectId: "deprince-auto",
+  storageBucket: "deprince-auto.firebasestorage.app",
+  messagingSenderId: "1091473342949",
+  appId: "1:1091473342949:web:ee837087d4a6e089f46f0c"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.db = db;
+window.collection = collection;
+window.addDoc = addDoc;
+window.getDocs = getDocs;
+window.deleteDoc = deleteDoc;
+window.doc = doc;
+
+console.log("Firebase Connected Successfully");
+</script>
+
+</body>
+</html>
