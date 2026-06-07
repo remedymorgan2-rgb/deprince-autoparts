@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Prince Auto Parts - Quality Auto Parts You Can Trust</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --primary: #c0392b; --bg: #0f0f0f; --card: #1a1a1a; --text: #ffffff; --muted: #aaaaaa; }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; }
+    
+    nav { background: #000; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #333; }
+    .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+    .nav-links a { color: var(--text); text-decoration: none; margin-left: 20px; font-weight: 600; }
+    .nav-links a:hover { color: var(--primary); }
+
+    .hero { padding: 100px 5%; text-align: center; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920&q=80') center/cover; }
+    .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+    .hero p { font-size: 1.2rem; color: var(--muted); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    
+    .btn-primary { background: var(--primary); color: white; padding: 12px 30px; border: none; border-radius: 5px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: 0.3s; }
+    .btn-primary:hover { background: #e74c3c; }
+    .btn-whatsapp { background: #25D366; color: white; padding: 12px 30px; border-radius: 5px; text-decoration: none; font-weight: 600; display: inline-block; margin-left: 10px; }
+
+    section { padding: 80px 5%; }
+    .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: var(--primary); }
+    
+    .about-content { max-width: 800px; margin: 0 auto; text-align: center; color: var(--muted); font-size: 1.1rem; }
+
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+    .product-card { background: var(--card); border-radius: 10px; overflow: hidden; border: 1px solid #333; transition: 0.3s; }
+    .product-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+    .product-card img { width: 100%; height: 220px; object-fit: cover; background: #222; }
+    .product-info { padding: 20px; }
+    .product-info h3 { margin-bottom: 10px; font-size: 1.2rem; }
+    .product-info p { color: var(--muted); font-size: 0.9rem; margin-bottom: 15px; }
+    .price { color: var(--primary); font-weight: 800; font-size: 1.3rem; margin-bottom: 10px; display: block; }
+    .stock-status { font-size: 0.9rem; font-weight: 600; margin-bottom: 15px; display: block; }
+    .in-stock { color: #2ecc71; }
+    .out-stock { color: #e74c3c; }
+
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+    .contact-card { background: var(--card); padding: 30px; border-radius: 10px; text-align: center; border: 1px solid #333; }
+    .contact-card h3 { color: var(--primary); margin-bottom: 10px; }
+    .contact-card p { color: var(--muted); }
+
+    footer { background: #000; padding: 40px 5%; text-align: center; border-top: 1px solid #333; color: var(--muted); }
+
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
+    .modal-content { background: var(--card); padding: 40px; border-radius: 10px; width: 90%; max-width: 500px; position: relative; border: 1px solid var(--primary); max-height: 90vh; overflow-y: auto; }
+    .close { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: var(--muted); }
+    .modal input, .modal select, .modal textarea { width: 100%; padding: 12px; margin-bottom: 15px; background: #0f0f0f; border: 1px solid #333; color: white; border-radius: 5px; }
+    .modal h2 { margin-bottom: 20px; color: var(--primary); }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">DE PRINCE</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#products">Parts</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <h1>Quality Auto Parts You Can Trust</h1>
+    <p>Your number one plug for genuine automobile spare parts in Ladipo Market. From bumpers to engines, we've got you covered.</p>
+    <a href="#products" class="btn-primary">Browse Parts</a>
+    <a href="https://wa.me/2349036339950" class="btn-whatsapp" target="_blank">Chat on WhatsApp</a>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">About De Prince Auto Parts</h2>
+    <div class="about-content">
+      <p>Located in the heart of Ladipo Market, Mushin, Lagos, De Prince Auto Parts has years of experience supplying top-quality vehicle body parts, suspension components, and engine essentials. We pride ourselves on durability, fair pricing, and excellent customer service.</p>
+    </div>
+  </section>
+
+  <section id="products" style="background: #121212;">
+    <h2 class="section-title">Our Product Catalog</h2>
+    <div class="products-grid" id="productsContainer">
+      <p style="text-align:center; grid-column: 1/-1; color: var(--muted);">Loading products...</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Call Us</h3>
+        <p id="phone1">+234 903 633 9950</p>
+        <p id="phone2">+234 812 877 7299</p>
+      </div>
+      <div class="contact-card">
+        <h3>Email & WhatsApp</h3>
+        <p id="email">priceagbo980@gmail.com</p>
+        <p id="whatsapp">+234 903 633 9950</p>
+      </div>
+      <div class="contact-card">
+        <h3>Visit Our Shop</h3>
+        <p id="address">Ladipo Street, Mushin, Lagos</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 De Prince Auto Parts. All Rights Reserved.</p>
+    <p style="margin-top: 10px;"><a href="admin.html" style="color: var(--muted); text-decoration: none;">Admin Panel</a></p>
+  </footer>
+
+  <!-- Order Modal -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Place Your Order</h2>
+      <form id="orderForm" onsubmit="submitOrder(event)">
+        <input type="hidden" id="productNameInput">
+        <input type="text" id="custName" placeholder="Full Name" required>
+        <input type="tel" id="custPhone" placeholder="Phone Number" required>
+        <input type="text" id="vehicleModel" placeholder="Vehicle Model (e.g. Toyota Hilux)" required>
+        <select id="deliveryType" required>
+          <option value="Home Delivery">Home Delivery</option>
+          <option value="Pickup at Ladipo">Pickup at Ladipo Market</option>
+        </select>
+        <input type="text" id="deliveryAddress" placeholder="Delivery Address" required>
+        <input type="date" id="preferredDate" required>
+        <textarea id="additionalNotes" placeholder="Additional Notes" rows="3"></textarea>
+        <button type="submit" class="btn-primary" style="width: 100%;">Send Order via WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAyNdQEZ4Jqj8FezBKTeWxAO773FN3qVsA",
+      authDomain: "deprince-auto.firebaseapp.com",
+      databaseURL: "https://deprince-auto-default-rtdb.firebaseio.com",
+      projectId: "deprince-auto",
+      storageBucket: "deprince-auto.firebasestorage.app",
+      messagingSenderId: "1091473342949",
+      appId: "1:1091473342949:web:ee837087d4a6e089f46f0c",
+      measurementId: "G-NDKBNWLWSY"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    function listenToProducts() {
+      const container = document.getElementById('productsContainer');
+      onSnapshot(collection(db, "products"), (snapshot) => {
+        container.innerHTML = '';
+        if(snapshot.empty) {
+          container.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--muted);">No products available yet. Check back soon!</p>';
+          return;
+        }
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          const stock = parseInt(data.stock) || 0;
+          const stockClass = stock > 0 ? 'in-stock' : 'out-stock';
+          const stockText = stock > 0 ? `In Stock: ${stock} units` : 'Out of Stock';
+
+          const card = `
+            <div class="product-card">
+              <img src="${data.imgUrl}" alt="${data.name}" onerror="this.src='https://via.placeholder.com/400x300/1a1a1a/c0392b?text=De+Prince+Auto'">
+              <div class="product-info">
+                <h3>${data.name}</h3>
+                <p>${data.desc}</p>
+                <span class="price">${data.price}</span>
+                <span class="stock-status ${stockClass}">${stockText}</span>
+                <button class="btn-primary" onclick="placeOrder('${data.name}')" style="width:100%" ${stock === 0 ? 'disabled style="width:100%; background:#555; cursor:not-allowed;"' : ''}>
+                  ${stock === 0 ? 'Unavailable' : 'Order This'}
+                </button>
+              </div>
+            </div>
+          `;
+          container.innerHTML += card;
+        });
+      });
+    }
+
+    async function loadSettings() {
+      try {
+        const docSnap = await getDoc(doc(db, "settings", "contact"));
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if(data.phone1) document.getElementById('phone1').innerText = data.phone1;
+          if(data.phone2) document.getElementById('phone2').innerText = data.phone2;
+          if(data.whatsapp) document.getElementById('whatsapp').innerText = data.whatsapp;
+          if(data.email) document.getElementById('email').innerText = data.email;
+          if(data.address) document.getElementById('address').innerText = data.address;
+        }
+      } catch(e) { console.log("Using default contact info."); }
+    }
+
+    listenToProducts();
+    loadSettings();
+
+    window.placeOrder = function(productName) {
+      document.getElementById('orderModal').style.display = 'flex';
+      document.getElementById('productNameInput').value = productName;
+    };
+
+    window.closeModal = function() {
+      document.getElementById('orderModal').style.display = 'none';
+    };
+
+    window.submitOrder = function(e) {
+      e.preventDefault();
+      const name = document.getElementById('custName').value;
+      const phone = document.getElementById('custPhone').value;
+      const product = document.getElementById('productNameInput').value;
+      const vehicle = document.getElementById('vehicleModel').value;
+      const deliveryType = document.getElementById('deliveryType').value;
+      const address = document.getElementById('deliveryAddress').value;
+      const date = document.getElementById('preferredDate').value;
+      const notes = document.getElementById('additionalNotes').value;
+
+      const message = `*NEW ORDER — De Prince Auto Parts*\n\n*Customer:* ${name}\n*Phone:* ${phone}\n*Product:* ${product}\n*Vehicle:* ${vehicle}\n*Delivery Type:* ${deliveryType}\n*Address:* ${address}\n*Preferred Date:* ${date}\n*Notes:* ${notes}\n\n_Sent from De Prince Auto Website_`;
+      
+      const whatsappUrl = `https://wa.me/2349036339950?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+      window.closeModal();
+      document.getElementById('orderForm').reset();
+    };
+  </script>
+</body>
+</html>
