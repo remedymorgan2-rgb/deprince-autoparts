@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - De Prince Auto Parts</title>
+  <style>
+    :root { --primary: #c0392b; --bg: #0f0f0f; --card: #1a1a1a; --text: #ffffff; --muted: #aaaaaa; }
+    body { background: var(--bg); color: var(--text); font-family: sans-serif; padding: 20px; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    .login-box { max-width: 400px; margin: 100px auto; background: var(--card); padding: 40px; border-radius: 10px; text-align: center; border: 1px solid var(--primary); }
+    input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], textarea, select { width: 100%; padding: 12px; margin-bottom: 15px; background: #0f0f0f; border: 1px solid #333; color: white; border-radius: 5px; font-size: 1rem; }
+    button { background: var(--primary); color: white; border: none; padding: 12px; cursor: pointer; font-weight: bold; border-radius: 5px; width: 100%; margin-bottom: 10px; font-size: 1rem; }
+    button:hover { background: #e74c3c; }
+    button:disabled { background: #555; cursor: not-allowed; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab-btn { background: #333; padding: 10px 20px; cursor: pointer; border-radius: 5px; color: white; border: none; }
+    .tab-btn.active { background: var(--primary); }
+    .tab-content { display: none; background: var(--card); padding: 30px; border-radius: 10px; }
+    .tab-content.active { display: block; }
+    .product-item { background: #0f0f0f; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-radius: 5px; gap: 15px; }
+    .product-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; }
+    .del-btn { background: #c0392b; width: auto; padding: 8px 15px; margin: 0; white-space: nowrap; }
+    h2 { color: var(--primary); margin-bottom: 20px; }
+    .status-msg { padding: 10px; border-radius: 5px; margin-bottom: 15px; display: none; text-align: center; font-weight: bold; }
+    .status-msg.uploading { background: #f39c12; color: black; }
+    .status-msg.success { background: #2ecc71; color: black; }
+    .status-msg.error { background: #e74c3c; color: white; }
+    .cloudinary-setup { background: #2c3e50; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #f39c12; }
+    .cloudinary-setup h3 { color: #f39c12; margin-bottom: 15px; }
+    .remember-me { display: flex; align-items: center; gap: 10px; margin: 15px 0; color: var(--muted); }
+    .remember-me input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--primary); }
+    .logout-btn { background: #555; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <div id="loginScreen" class="login-box">
+    <h2>Admin Login</h2>
+    <input type="password" id="adminPwd" placeholder="Enter Password">
+    
+    <div class="remember-me">
+      <input type="checkbox" id="rememberMe">
+      <label for="rememberMe">Remember me on this device</label>
+    </div>
+    
+    <button onclick="login()">Login</button>
+    <p id="loginError" style="color: #e74c3c; display: none; margin-top: 10px;">Incorrect password!</p>
+  </div>
+
+  <div id="dashboard" class="container" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <h1>De Prince Admin Dashboard</h1>
+      <button onclick="logout()" style="width: auto; padding: 10px 20px;" class="logout-btn">Logout</button>
+    </div>
+    
+    <div class="tabs">
+      <div class="tab-btn active" onclick="showTab('tab0', this)">Setup</div>
+      <div class="tab-btn" onclick="showTab('tab1', this)">Products</div>
+      <div class="tab-btn" onclick="showTab('tab2', this)">Contact Info</div>
+      <div class="tab-btn" onclick="showTab('tab3', this)">User Guide</div>
+    </div>
+
+    <div id="tab0" class="tab-content active">
+      <h2>System Setup</h2>
+      <div class="cloudinary-setup">
+        <h3>📸 Image Hosting (Cloudinary)</h3>
+        <p style="color: var(--muted); margin-bottom: 15px;">
+          Your free image hosting is connected and ready to use.
+        </p>
+        <input type="text" value="ddhhmigxr" readonly style="background: #0f0f0f; color: #2ecc71;">
+        <input type="text" value="deprince" readonly style="background: #0f0f0f; color: #2ecc71;">
+        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">
+          Status: <strong style="color: #2ecc71;">Connected & Active</strong>
+        </p>
+      </div>
+    </div>
+
+    <div id="tab1" class="tab-content">
+      <div id="uploadStatus" class="status-msg"></div>
+      
+      <h2>Add New Product</h2>
+      <input type="text" id="prodName" placeholder="Product Name (e.g. Front Bumper)">
+      <input type="text" id="prodPrice" placeholder="Price (e.g. ₦45,000 or Call for Price)">
+      <input type="number" id="prodStock" placeholder="Available Stock (e.g. 5)" min="0">
+      <textarea id="prodDesc" placeholder="Description" rows="3"></textarea>
+      
+      <label style="color: var(--muted); display: block; margin-bottom: 5px;">Product Image:</label>
+      <input type="file" id="prodImgFile" accept="image/*" style="padding: 10px; background: #222;">
+      
+      <button id="addBtn" onclick="addProduct()">Add Product</button>
+
+      <h2 style="margin-top: 40px;">Manage Products</h2>
+      <div id="productList"></div>
+    </div>
+
+    <div id="tab2" class="tab-content">
+      <h2>Update Contact Information</h2>
+      <input type="text" id="setPhone1" placeholder="Phone 1">
+      <input type="text" id="setPhone2" placeholder="Phone 2">
+      <input type="text" id="setWhatsapp" placeholder="WhatsApp Number">
+      <input type="email" id="setEmail" placeholder="Email Address">
+      <input type="text" id="setAddress" placeholder="Business Address">
+      <button onclick="saveSettings()">Save Contact Info</button>
+    </div>
+
+    <div id="tab3" class="tab-content">
+      <h2>User Guide</h2>
+      <h3>How to add products:</h3>
+      <p>1. Go to "Products" tab<br>
+         2. Fill in Name, Price, Stock, and Description<br>
+         3. Click "Choose File" to select a picture from your phone/computer<br>
+         4. Click "Add Product"<br>
+         5. It will instantly appear on the main website!</p>
+      
+      <h3 style="margin-top: 20px;">How to delete products:</h3>
+      <p>Scroll down to the "Manage Products" list and click the red "Delete" button.</p>
+      
+      <h3 style="margin-top: 20px;">How to update contacts:</h3>
+      <p>Go to the "Contact Info" tab, change the details, and click Save.</p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, addDoc, deleteDoc, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAyNdQEZ4Jqj8FezBKTeWxAO773FN3qVsA",
+      authDomain: "deprince-auto.firebaseapp.com",
+      databaseURL: "https://deprince-auto-default-rtdb.firebaseio.com",
+      projectId: "deprince-auto",
+      storageBucket: "deprince-auto.firebasestorage.app",
+      messagingSenderId: "1091473342949",
+      appId: "1:1091473342949:web:ee837087d4a6e089f46f0c",
+      measurementId: "G-NDKBNWLWSY"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const CLOUD_NAME = 'ddhhmigxr';
+    const UPLOAD_PRESET = 'deprince';
+
+    window.onload = function() {
+      const remembered = localStorage.getItem('rememberMe');
+      if(remembered === 'true') {
+        document.getElementById('adminPwd').value = 'deprince2024';
+        login();
+      }
+    };
+
+    window.login = function() {
+      const pwd = document.getElementById('adminPwd').value;
+      const rememberMe = document.getElementById('rememberMe').checked;
+      
+      if(pwd === 'deprince2024') {
+        if(rememberMe || localStorage.getItem('rememberMe') === 'true') {
+          localStorage.setItem('rememberMe', 'true');
+        } else {
+          localStorage.removeItem('rememberMe');
+        }
+        
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        listenToAdminProducts();
+        loadAdminSettings();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('loginError').style.display = 'none';
+        }, 3000);
+      }
+    };
+
+    window.logout = function() {
+      localStorage.removeItem('rememberMe');
+      location.reload();
+    };
+
+    window.showTab = function(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+    };
+
+    async function uploadToCloudinary(file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', UPLOAD_PRESET);
+      formData.append('folder', 'deprince-autoparts');
+
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+      if(!data.secure_url) throw new Error('Upload failed');
+      return data.secure_url;
+    }
+
+    window.addProduct = async function() {
+      const file = document.getElementById('prodImgFile').files[0];
+      if(!file) return alert("Please select an image!");
+      
+      const name = document.getElementById('prodName').value;
+      if(!name) return alert("Product name is required!");
+
+      const btn = document.getElementById('addBtn');
+      const status = document.getElementById('uploadStatus');
+      
+      btn.disabled = true;
+      btn.innerText = "Uploading...";
+      status.className = 'status-msg uploading';
+      status.style.display = 'block';
+      status.innerText = 'Uploading image...';
+
+      try {
+        const imageUrl = await uploadToCloudinary(file);
+        status.innerText = 'Saving product...';
+        
+        const newProd = {
+          name: name,
+          price: document.getElementById('prodPrice').value || 'Call for Price',
+          stock: parseInt(document.getElementById('prodStock').value) || 0,
+          desc: document.getElementById('prodDesc').value,
+          imgUrl: imageUrl,
+          createdAt: new Date().toISOString()
+        };
+        
+        await addDoc(collection(db, "products"), newProd);
+        
+        status.className = 'status-msg success';
+        status.innerText = "✓ Product added successfully!";
+        setTimeout(() => { status.style.display = 'none'; }, 3000);
+        
+        document.getElementById('prodName').value = '';
+        document.getElementById('prodPrice').value = '';
+        document.getElementById('prodStock').value = '';
+        document.getElementById('prodDesc').value = '';
+        document.getElementById('prodImgFile').value = '';
+        
+      } catch (error) {
+        status.className = 'status-msg error';
+        status.innerText = "Error: " + error.message;
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Add Product";
+      }
+    };
+
+    window.deleteProduct = async function(id) {
+      if(confirm("Are you sure you want to delete this product?")) {
+        await deleteDoc(doc(db, "products", id));
+      }
+    };
+
+    function listenToAdminProducts() {
+      const list = document.getElementById('productList');
+      onSnapshot(collection(db, "products"), (snapshot) => {
+        list.innerHTML = '';
+        if(snapshot.empty) {
+          list.innerHTML = '<p style="color:var(--muted)">No products added yet.</p>';
+          return;
+        }
+        snapshot.forEach(d => {
+          const data = d.data();
+          list.innerHTML += `
+            <div class="product-item">
+              <img src="${data.imgUrl}" alt="prod">
+              <div style="flex: 1;">
+                <b>${data.name}</b><br>
+                <small style="color:var(--muted)">${data.price} | Stock: ${data.stock}</small>
+              </div>
+              <button class="del-btn" onclick="deleteProduct('${d.id}')">Delete</button>
+            </div>
+          `;
+        });
+      });
+    }
+
+    window.saveSettings = async function() {
+      const settings = {
+        phone1: document.getElementById('setPhone1').value,
+        phone2: document.getElementById('setPhone2').value,
+        whatsapp: document.getElementById('setWhatsapp').value,
+        email: document.getElementById('setEmail').value,
+        address: document.getElementById('setAddress').value
+      };
+      await setDoc(doc(db, "settings", "contact"), settings);
+      alert("Contact Info Saved!");
+    };
+
+    async function loadAdminSettings() {
+      const snap = await getDoc(doc(db, "settings", "contact"));
+      if(snap.exists()) {
+        const d = snap.data();
+        document.getElementById('setPhone1').value = d.phone1 || '';
+        document.getElementById('setPhone2').value = d.phone2 || '';
+        document.getElementById('setWhatsapp').value = d.whatsapp || '';
+        document.getElementById('setEmail').value = d.email || '';
+        document.getElementById('setAddress').value = d.address || '';
+      }
+    }
+  </script>
+</body>
+</html>
